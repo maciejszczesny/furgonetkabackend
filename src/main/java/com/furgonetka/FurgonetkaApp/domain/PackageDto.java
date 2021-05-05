@@ -1,34 +1,14 @@
 package com.furgonetka.FurgonetkaApp.domain;
-import javax.persistence.*;
 
-@Entity
-@Table
-public class MyPackage {
-
-    @Id
-    @GeneratedValue
-    private Long id;
-    @Column
+public class PackageDto {
     private String firstName;
-
-    @Column
     private String lastName;
 
-    public MyPackage() {
-    }
+    public PackageDto() {}
 
-    public MyPackage(Long id, String firstName, String lastName) {
-        this.id = id;
+    public PackageDto(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
