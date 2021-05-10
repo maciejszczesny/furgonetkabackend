@@ -4,11 +4,9 @@ import com.furgonetka.FurgonetkaApp.domain.MyPackage;
 import com.furgonetka.FurgonetkaApp.domain.PackageDto;
 import com.furgonetka.FurgonetkaApp.repository.PackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.lang.management.MemoryType;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +44,15 @@ public class PackageController {
         List<MyPackage> packages = packageRepository.findAll();
 
         for (MyPackage myPackage : packages) {
-            PackageDto packageDto = new PackageDto(myPackage.getFirstName(), myPackage.getLastName());
+            PackageDto packageDto = new PackageDto(myPackage.getFirstName(), myPackage.getLastName(), myPackage.getId());
             packageDtos.add(packageDto);
         }
-
         return packageDtos;
+    }
+
+    @DeleteMapping(path = "/packages/{id}")
+    public void deletePackage(@PathVariable String id) {
+
+        packageRepository.deleteById(Long.valueOf(id));
     }
 }
