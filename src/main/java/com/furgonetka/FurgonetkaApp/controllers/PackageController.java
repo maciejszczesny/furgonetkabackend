@@ -29,10 +29,13 @@ public class PackageController {
 
         String firstName = packageDto.getFirstName();
         String lastName = packageDto.getLastName();
+        Integer clientNumber = packageDto.getClientNumber();
 
         MyPackage myPackage = new MyPackage();
         myPackage.setFirstName(firstName);
         myPackage.setLastName(lastName);
+        myPackage.setClientNumber(clientNumber);
+
 
         packageRepository.save(myPackage);
         return "Showing packages";
@@ -44,7 +47,7 @@ public class PackageController {
         List<MyPackage> packages = packageRepository.findAll();
 
         for (MyPackage myPackage : packages) {
-            PackageDto packageDto = new PackageDto(myPackage.getFirstName(), myPackage.getLastName(), myPackage.getId());
+            PackageDto packageDto = new PackageDto(myPackage.getFirstName(), myPackage.getLastName(), myPackage.getId(), myPackage.getClientNumber());
             packageDtos.add(packageDto);
         }
         return packageDtos;
@@ -55,4 +58,19 @@ public class PackageController {
 
         packageRepository.deleteById(Long.valueOf(id));
     }
+
+
+    @GetMapping(path = "/myPackages/{clientNumber}")
+    public List <PackageDto> getClientPackages(@PathVariable String clientNumber){
+        List<PackageDto> packageDtos = new ArrayList<>();
+        List<MyPackage> packages = packageRepository.findAllByClientNumber(Integer.valueOf(clientNumber));
+
+        for (MyPackage myPackage : packages) {
+            PackageDto packageDto = new PackageDto(myPackage.getFirstName(), myPackage.getLastName(), myPackage.getId(), myPackage.getClientNumber());
+            packageDtos.add(packageDto);
+        }
+        return packageDtos;
+
+    }
+
 }

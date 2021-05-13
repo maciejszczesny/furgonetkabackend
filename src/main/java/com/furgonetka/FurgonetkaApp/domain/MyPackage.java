@@ -14,6 +14,9 @@ public class MyPackage {
     @Column
     private String lastName;
 
+    @Column
+    private Integer clientNumber;
+
     public MyPackage() {
     }
 
@@ -21,6 +24,7 @@ public class MyPackage {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.clientNumber = clientNumber;
     }
 
     public Long getId() {
@@ -45,5 +49,11 @@ public class MyPackage {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Integer getClientNumber() { return clientNumber; }
+
+    public void setClientNumber(Integer clientNumber) {
+        this.clientNumber = clientNumber;
     }
 }
